@@ -1,0 +1,61 @@
+<header *ngIf="user" class="header">
+  <div class="userContainer">
+    <div class="userContainerContent">
+      <img class="imageUrl" [src]="user.imageUrl" alt="userImg" />
+      <p class="userContentDescription">
+        <strong>{{ user.prefix }}{{ user.name }} {{ user.lastName }}</strong>
+      </p>
+      <p class="userContentDescription">{{ user.title }}</p>
+    </div>
+  </div>
+  <fieldset class="fieldset info">
+    <legend>info</legend>
+    <div>
+      <div>
+        <strong>{{ user.prefix }} {{ user.name }} {{ user.lastName }}</strong>
+      </div>
+      <div>{{ user.title }}</div>
+      <br />
+      <div><span>Email: </span> {{ user.email }}</div>
+      <div><span>IP adress: </span> {{ user.ip }}</div>
+      <div><span>Job Area: </span> {{ user.jobArea }}</div>
+      <div><span>Job Type : </span>{{ user.jobType }}</div>
+      <div><span>Job Descriptor: </span>{{ user.jobDescriptor }}</div>
+    </div>
+  </fieldset>
+  <fieldset class="fieldset adress">
+    <legend>adress</legend>
+    <div>
+      <strong>{{ user.company.name }}</strong>
+    </div>
+    <br />
+    <br />
+
+    <div><span>City: </span> {{ user.address.city }}</div>
+    <div><span>Country: </span> {{ user.address.country }}</div>
+    <div><span>State: </span> {{ user.address.state }}</div>
+    <div><span>Street Address: </span>{{ user.address.streetAddress }}</div>
+    <div><span>ZIP: </span>{{ user.address.zipCode }}</div>
+  </fieldset>
+</header>
+<br />
+<br />
+Friends:
+<br />
+<div class="scrollable-container">
+  <div *ngFor="let friend of friends">
+    <div class="userContainer">
+      <div class="userContainerContent">
+        <img class="imageUrl" [src]="friend.imageUrl" alt="userImg" />
+        <p class="userContentDescription">
+          <strong
+            >{{ friend.prefix }}{{ friend.name }} {{ friend.lastName }}</strong
+          >
+        </p>
+        <p class="userContentDescription">{{ friend.title }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="isLoading">Loading...</div>
+<div *ngIf="!hasMoreData">No more data.</div>

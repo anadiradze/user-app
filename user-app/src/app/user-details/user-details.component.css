@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  justify-content: flex-start;
+  align-items:  center;
+  align-items: center;
+  width: 100%;
+  overflow-x: hidden;
+}
+fieldset {
+ 
+  min-inline-size: min-content;
+  border-width: 2px;
+  border-style: groove;
+  border-color: rgb(192, 192, 192);
+  border-image: initial;
+  font-size: 20px;
+}
+fieldset span {
+  text-decoration: underline;
+}
+legend {
+  display: block;
+  padding-inline-start: 2px;
+  padding-inline-end: 2px;
+  border-width: initial;
+  border-style: none;
+  border-color: initial;
+  border-image: initial;
+}
+

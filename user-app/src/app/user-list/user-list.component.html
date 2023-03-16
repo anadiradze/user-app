@@ -1,0 +1,15 @@
+<div class="scrollable-container" (scroll)="onScroll()">
+    <div *ngFor="let user of users" [routerLink]="['/user', user.id]">
+      <div class="userContainer">
+        <div class="userContainerContent">
+        <img class='imageUrl' [src]="user.imageUrl" alt="userImg">
+        <p class="userContentDescription"><strong>{{user.prefix}}{{ user.name }} {{ user.lastName }}</strong></p>
+        <p class="userContentDescription">{{ user.title }}</p>
+      </div>
+      </div>
+    </div>
+  
+    <div *ngIf="isLoading">Loading...</div>
+  
+    <div *ngIf="!hasMoreData">No more data.</div>
+  </div>
