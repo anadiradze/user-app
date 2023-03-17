@@ -29,7 +29,6 @@
       <strong>{{ user.company.name }}</strong>
     </div>
     <br />
-    <br />
 
     <div><span>City: </span> {{ user.address.city }}</div>
     <div><span>Country: </span> {{ user.address.country }}</div>
@@ -39,12 +38,27 @@
   </fieldset>
 </header>
 <br />
+<div class="buttons">
+  <button class="blob-btn insideBtn" (click)="goToMainPage()"
+    >
+    User List
+    <span class="blob-btn__inner">
+      <span class="blob-btn__blobs">
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+      </span>
+    </span>
+  </button>
+</div>
 <br />
-Friends:
 <br />
-<div class="scrollable-container">
-  <div *ngFor="let friend of friends">
-    <div class="userContainer">
+<div class="friendsTitle blob-btn insideBtn">Friends:</div>
+<br />
+<div #friendsList class="friends-list" (scroll)="onScroll()" >
+  <div *ngFor="let friend of friends" [routerLink]="['/user', friend.id]">
+    <div class="userContainer" (click)="getUser(friend.id)">
       <div class="userContainerContent">
         <img class="imageUrl" [src]="friend.imageUrl" alt="userImg" />
         <p class="userContentDescription">

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Router,ActivatedRoute } from '@angular/router';
 import { UserService } from '../user-service.service';
 
 @Component({
@@ -11,11 +12,13 @@ export class UserDetailsComponent implements OnInit {
   user: any;
   friends: any[] = [];
   page = 0;
-  size = 20;
+  size = 50;
   isLoading = false;
   hasMoreData = true;
 
-  constructor(private route: ActivatedRoute, private userService: UserService) { }
+  @ViewChild('friendsList', { static: false }) friendsList?: ElementRef;
+
+  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     const userId = this.route.snapshot.paramMap.get('id');
@@ -24,7 +27,9 @@ export class UserDetailsComponent implements OnInit {
       this.getFriends(userId);
     }
   }
-
+onclickito(){
+  console.log('lalala')
+}
 
   getFriends(userId: string) {
     this.isLoading = true;
@@ -38,7 +43,6 @@ export class UserDetailsComponent implements OnInit {
     });
   }
   
-  
   getUser(userId: string) {
     this.isLoading = true;
     this.userService.getUser(parseInt(userId)).subscribe((data: any) => {
@@ -47,14 +51,18 @@ export class UserDetailsComponent implements OnInit {
     });
   }
   
-
   onScroll() {
-    if (!this.isLoading && this.hasMoreData) {
+    const friendsListEl = this.friendsList?.nativeElement;
+    const isScrolledToBottom = friendsListEl.scrollHeight - friendsListEl.scrollTop === friendsListEl.clientHeight;
+    if (!this.isLoading && this.hasMoreData && isScrolledToBottom) {
       this.page++;
       const userId = this.route.snapshot.paramMap.get('id');
       if (userId) {
         this.getFriends(userId);
       }
     }
+  }
+  goToMainPage() {
+    this.router.navigate(['/']);
   }
 }
