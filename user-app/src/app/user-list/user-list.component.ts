@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../user-service.service';
 
 @Component({
@@ -12,11 +12,13 @@ export class UserListComponent implements OnInit {
   size = 30;
   isLoading = false;
   hasMoreData = true;
+  
+  @ViewChild('usersList', { static: false }) usersList?: ElementRef;
 
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    console.log('this.getUsers()', this.getUsers());
+    this.getUsers()
   }
 
   getUsers() {
@@ -35,10 +37,10 @@ export class UserListComponent implements OnInit {
 
   onScroll() {
     console.log('onScroll() called');
-    const scrollPosition = window.innerHeight + window.scrollY;
-    const documentHeight = document.body.offsetHeight;
-    const buffer = 100;
-    if (scrollPosition >= documentHeight - buffer) {
+    const usersListEl = this.usersList?.nativeElement;
+    const isScrolledToBottom = usersListEl.scrollHeight - usersListEl.scrollTop === usersListEl.clientHeight;
+  
+    if (isScrolledToBottom && !this.isLoading && this.hasMoreData) {
       this.page++;
       this.getUsers();
     }

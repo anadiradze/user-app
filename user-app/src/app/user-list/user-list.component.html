@@ -1,4 +1,4 @@
-<div class="scrollable-container" (scroll)="onScroll()">
+<div #usersList class="scrollable-container" (scroll)="onScroll()">
     <div *ngFor="let user of users" [routerLink]="['/user', user.id]">
       <div class="userContainer">
         <div class="userContainerContent">
