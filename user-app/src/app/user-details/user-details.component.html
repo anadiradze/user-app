@@ -39,8 +39,7 @@
 </header>
 <br />
 <div class="buttons">
-  <button class="blob-btn insideBtn" (click)="goToMainPage()"
-    >
+  <button class="blob-btn insideBtn" (click)="goToMainPage()">
     User List
     <span class="blob-btn__inner">
       <span class="blob-btn__blobs">
@@ -56,7 +55,7 @@
 <br />
 <div class="friendsTitle blob-btn insideBtn">Friends:</div>
 <br />
-<div #friendsList class="friends-list" (scroll)="onScroll()" >
+<div #friendsList class="friends-list" (scroll)="onScrollFriends()">
   <div *ngFor="let friend of friends" [routerLink]="['/user', friend.id]">
     <div class="userContainer" (click)="getUser(friend.id)">
       <div class="userContainerContent">

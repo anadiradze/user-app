@@ -9,22 +9,21 @@ import { UserService } from '../user-service.service';
 export class UserListComponent implements OnInit {
   users: any[] = [];
   page = 1;
-  size = 30;
+  size = 25;
   isLoading = false;
   hasMoreData = true;
-  
+
   @ViewChild('usersList', { static: false }) usersList?: ElementRef;
 
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.getUsers()
+    this.getUsers();
   }
 
   getUsers() {
     this.isLoading = true;
     this.userService.getUsers(this.page, this.size).subscribe((data: any) => {
-      console.log('data', data);
       if (data.length === 0) {
         this.hasMoreData = false;
       } else {
@@ -35,14 +34,17 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  onScroll() {
-    console.log('onScroll() called');
+  onScrollUsers() {
     const usersListEl = this.usersList?.nativeElement;
-    const isScrolledToBottom = usersListEl.scrollHeight - usersListEl.scrollTop === usersListEl.clientHeight;
-  
-    if (isScrolledToBottom && !this.isLoading && this.hasMoreData) {
-      this.page++;
-      this.getUsers();
-    }
+    this.userService.onScroll(
+      this.page,
+      this.hasMoreData,
+      this.isLoading,
+      usersListEl,
+      (page: number) => {
+        this.page = page;
+        this.getUsers();
+      }
+    );
   }
 }
