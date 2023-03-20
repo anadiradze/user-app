@@ -6,12 +6,12 @@
         "use": "@vercel/static-build",
         "config": {
           "maxLambdaSize": "1024",
-          "distDir": "dist/user-app"
+          "distDir": "dist/YOUR_PROJECT_NAME"
         },
         "env": {
           "CI": "1"
         },
-        "command": "npm install -g @angular/cli && ng build --prod"
+        "command": "npm run build"
       }
     ],
     "headers": [
