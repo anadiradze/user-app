@@ -76,6 +76,7 @@ export class UserDetailsComponent implements OnInit {
       this.getUser(FriendsId);
       this.friends = [];
       this.getFriends(FriendsId);
+     this.router.navigateByUrl(`user/${FriendsId}`)
     }
   }
 }
