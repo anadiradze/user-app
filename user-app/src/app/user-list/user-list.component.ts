@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../user-service.service';
+import { IData, IUsers } from './models/user.model';
 
 @Component({
   selector: 'app-user-list',
@@ -7,7 +8,7 @@ import { UserService } from '../user-service.service';
   styleUrls: ['./user-list.component.css'],
 })
 export class UserListComponent implements OnInit {
-  users: any[] = [];
+  users: IUsers[] = [];
   page = 1;
   size = 25;
   isLoading = false;
@@ -23,11 +24,11 @@ export class UserListComponent implements OnInit {
 
   getUsers() {
     this.isLoading = true;
-    this.userService.getUsers(this.page, this.size).subscribe((data: any) => {
-      if (data.length === 0) {
+    this.userService.getUsers(this.page, this.size).subscribe((data: IData) => {
+      if (data.list.length === 0) {
         this.hasMoreData = false;
       } else {
-        this.users = this.users.concat(data.list);
+        this.users = this.users.concat(data.list as IUsers[]);
         this.hasMoreData = true;
       }
       this.isLoading = false;

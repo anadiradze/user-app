@@ -1,15 +1,15 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../user-service.service';
-
+import { IData, IUser, IUsers } from '../user-list/models/user.model';
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.css'],
 })
 export class UserDetailsComponent implements OnInit {
-  user: any;
-  friends: any[] = [];
+  user!: IUser;
+  friends: IUsers[] = [];
   page = 0;
   size = 25;
   isLoading = false;
@@ -31,15 +31,14 @@ export class UserDetailsComponent implements OnInit {
     }
   }
 
-
   getFriends(userId: string) {
     this.isLoading = true;
     this.userService
       .getFriends(parseInt(userId), this.page, this.size)
-      .subscribe((data: any) => {
+      .subscribe((data: IData) => {
         this.friends = this.friends.concat(data.list);
         this.isLoading = false;
-        if (data.length < this.size) {
+        if (data.list.length < this.size) {
           this.hasMoreData = false;
         }
       });
@@ -47,7 +46,7 @@ export class UserDetailsComponent implements OnInit {
 
   getUser(userId: string) {
     this.isLoading = true;
-    this.userService.getUser(parseInt(userId)).subscribe((data: any) => {
+    this.userService.getUser(parseInt(userId)).subscribe((data: IUser) => {
       this.user = data;
       this.isLoading = false;
     });
@@ -70,5 +69,13 @@ export class UserDetailsComponent implements OnInit {
         }
       }
     );
+  }
+
+  getUserWithFriends(FriendsId: string) {
+    if (FriendsId) {
+      this.getUser(FriendsId);
+      this.friends = [];
+      this.getFriends(FriendsId);
+    }
   }
 }

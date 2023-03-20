@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { IData, IUser, IUsers } from './user-list/models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,13 +12,13 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getUsers(page: number, size: number) {
-    return this.http.get(`${this.apiUrl}/user/${page}/${size}`);
+    return this.http.get<IData>(`${this.apiUrl}/user/${page}/${size}`);
   }
   getUser(userId: number) {
-    return this.http.get(`${this.apiUrl}/user/${userId}`);
+    return this.http.get<IUser>(`${this.apiUrl}/user/${userId}`);
   }
   getFriends(userId: number, page: number, size: number) {
-    return this.http.get(
+    return this.http.get<IData>(
       `${this.apiUrl}/user/${userId}/friends/${page}/${size}`
     );
   }

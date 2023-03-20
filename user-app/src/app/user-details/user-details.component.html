@@ -57,7 +57,7 @@
 <br />
 <div #friendsList class="friends-list" (scroll)="onScrollFriends()">
   <div *ngFor="let friend of friends" [routerLink]="['/user', friend.id]">
-    <div class="userContainer" (click)="getUser(friend.id)">
+    <div class="userContainer" (click)="getUserWithFriends(friend.id)">
       <div class="userContainerContent">
         <img class="imageUrl" [src]="friend.imageUrl" alt="userImg" />
         <p class="userContentDescription">
