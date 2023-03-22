@@ -1,11 +1,12 @@
 .friends-list {
-  height: 500px;
+  height: 100vh;
   overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   justify-content: center;
   width: 100%;
-  display: flex;
   flex-wrap: wrap;
+  padding: 0;
 }
 
 .header {
@@ -26,7 +27,6 @@ fieldset {
   font-size: 25px;
   height: 385px;
   margin: 10px;
-
 }
 fieldset span {
   text-decoration: underline;
@@ -73,6 +73,7 @@ legend {
 .blob-btn {
   z-index: 1;
   position: relative;
+  max-width: 900px;
   padding: 20px 46px;
   margin-left: 5%;
 }
