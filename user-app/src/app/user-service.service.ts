@@ -29,13 +29,10 @@ export class UserService {
     element: HTMLElement,
     callback: Function
   ): void {
+    const threshold = 50;
     const isScrolledToBottom =
-      element.scrollHeight - element.scrollTop <= element.clientHeight;
-      console.log("isScrolledToBottom",isScrolledToBottom)
-      console.log("scrollHeight", element.scrollHeight)
-      console.log("element.scrollTop",element.scrollTop)
-      console.log("element.clientHeight",element.clientHeight)
-
+      element.scrollHeight - element.scrollTop - threshold <=
+      element.clientHeight;
     if (isScrolledToBottom && !isLoading && hasMoreData) {
       page++;
       callback(page);
